@@ -4,6 +4,7 @@ import { keyFeatures } from "@/lib/constants";
 import { FeaturesData } from "@/lib/types";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import { Spinner } from "../ui/spinner";
 
 const HomePageDetails = () => {
     const [data, setData] = useState<FeaturesData | null>(null);
@@ -30,7 +31,7 @@ const HomePageDetails = () => {
 
     if (loading || !data) return (
         <div className="flex items-center justify-center w-full h-full">
-            <span>Loading...</span>
+            <Spinner variant="bars" />
         </div>
     );
 
@@ -45,7 +46,6 @@ const HomePageDetails = () => {
             </div>
 
             <div className="relative w-full max-w-5xl flex justify-between items-center">
-                {/* Left Side */}
                 <div className="flex flex-col gap-10">
                     {Object.entries(data).slice(0, 2).map(([key, feature]) => {
                         const featureData = Array.isArray(feature) ? feature[0] : feature;
@@ -79,12 +79,10 @@ const HomePageDetails = () => {
                     })}
                 </div>
 
-                {/* Brain Image */}
                 <div className="relative flex items-center justify-center">
                     <Image src={"/image.png"} width={500} height={500} alt="Cognify Now" className="z-[-1] opacity-50" />
                 </div>
 
-                {/* Right Side */}
                 <div className="flex flex-col gap-10">
                     {Object.entries(data).slice(2, 4).map(([key, feature]) => {
                         const featureData = Array.isArray(feature) ? feature[0] : feature;
@@ -119,7 +117,6 @@ const HomePageDetails = () => {
                 </div>
             </div>
 
-            {/* Feature details pop-up over the brain image */}
             {selectedFeature && data[selectedFeature] && (
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-white p-6 shadow-xl rounded-lg max-w-md opacity-90">
                     <h3 className="text-xl font-semibold mb-4">{data[selectedFeature][0].title}</h3>
