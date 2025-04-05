@@ -15,7 +15,8 @@ const HomePageDetails = () => {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(process.env.NODE_ENV === "production" ? "https://cognifynow.com/api/cognify/key-features" : "http://localhost:3000/api/cognify/key-features");
+                const response = await fetch("https://cognifynow.vercel.app/api/cognify/key-features");
+                // const response = await fetch("http://localhost:3000/api/cognify/key-features");
                 const result = await response.json();
                 setData(result.features);
                 setLoading(false);
