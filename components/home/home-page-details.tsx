@@ -15,7 +15,7 @@ const HomePageDetails = () => {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(process.env.NODE_ENV === "production" ? "https://cognifynow.com/api/features" : "http://localhost:3000/api/features");
+                const response = await fetch(process.env.NODE_ENV === "production" ? "https://cognifynow.com/api/cognify/key-features" : "http://localhost:3000/api/cognify/key-features");
                 const result = await response.json();
                 setData(result.features);
                 setLoading(false);
