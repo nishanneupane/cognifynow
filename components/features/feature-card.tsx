@@ -4,13 +4,11 @@ import Image from "next/image";
 import { useState } from "react";
 
 export default function FeatureCard({
-    id,
     icon,
     title,
     points,
     position = "left",
 }: {
-    id: string;
     icon: string;
     title: string;
     points: string[];
