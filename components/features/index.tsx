@@ -14,7 +14,6 @@ export default function Features({ features: data }: { features: FeaturesData })
                     return (
                         <FeatureCard
                             key={key}
-                            id={key}
                             icon={keyFeatures[key as keyof typeof keyFeatures] || "/image.png"}
                             title={featureData.title}
                             points={featureData.points}
@@ -35,7 +34,6 @@ export default function Features({ features: data }: { features: FeaturesData })
                     return (
                         <FeatureCard
                             key={key}
-                            id={key}
                             icon={keyFeatures[key as keyof typeof keyFeatures] || "/image.png"}
                             title={featureData.title}
                             points={featureData.points}
