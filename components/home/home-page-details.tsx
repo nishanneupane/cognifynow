@@ -10,13 +10,12 @@ const HomePageDetails = () => {
     const [data, setData] = useState<FeaturesData | null>(null);
     const [loading, setLoading] = useState(false);
     const [hoveredFeature, setHoveredFeature] = useState<string | null>(null);
-    const [selectedFeature, setSelectedFeature] = useState<keyof FeaturesData | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const response = await fetch("http://localhost:3000/api/cognify/key-features");
+                const response = await fetch(process.env.NODE_ENV === "production" ? "https://cognifynow.com/api/features" : "http://localhost:3000/api/features");
                 const result = await response.json();
                 setData(result.features);
                 setLoading(false);
@@ -52,24 +51,23 @@ const HomePageDetails = () => {
                         return (
                             <div
                                 key={key}
-                                className="relative flex flex-col items-center bg-white p-3 shadow-md rounded-lg cursor-pointer transition duration-300 hover:shadow-xl"
-                                onClick={() => setSelectedFeature(key as keyof FeaturesData)}
+                                className="relative flex flex-col items-start bg-white p-3 rounded-lg cursor-pointer transition-all duration-300 hover:shadow-xl"
                                 onMouseEnter={() => setHoveredFeature(key)}
                                 onMouseLeave={() => setHoveredFeature(null)}
                             >
                                 <Image
-                                    src={keyFeatures[key as keyof typeof keyFeatures] || "/default-icon.png"}
+                                    src={keyFeatures[key as keyof typeof keyFeatures] || "/image.png"}
                                     width={50}
                                     height={50}
                                     alt={featureData.title}
                                 />
-                                <span className="mt-2 text-sm font-medium">{featureData.title}</span>
+                                <span className="mt-2 text-md font-medium flex-wrap w-30 flex text-start justify-start text-gray-700">{featureData.title}</span>
 
                                 {hoveredFeature === key && (
-                                    <div className="absolute top-full mt-2 bg-white shadow-md p-4 rounded-lg w-64 text-left text-sm z-50">
-                                        <ul>
+                                    <div className="absolute left-full mt-2 bg-white/80 shadow-md p-4 py-8 rounded-lg w-72 text-left text-sm z-50 ml-2">
+                                        <ul className="text-left list-disc pl-4">
                                             {featureData.points.map((point: string, i: number) => (
-                                                <li key={i} className="mb-1">- {point}</li>
+                                                <li key={i} className="mb-1"> {point}</li>
                                             ))}
                                         </ul>
                                     </div>
@@ -78,9 +76,30 @@ const HomePageDetails = () => {
                         );
                     })}
                 </div>
-
                 <div className="relative flex items-center justify-center">
-                    <Image src={"/image.png"} width={500} height={500} alt="Cognify Now" className="z-[-1] opacity-50" />
+                    <svg className="absolute w-[600px] h-[600px] opacity-40 z-[-1]" viewBox="0 0 600 600" fill="none">
+
+                        <path d="M180 280 H140 Q120 270 110 250 H90" stroke="blue" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        <circle cx="180" cy="280" r="5" fill="blue" />
+                        <circle cx="90" cy="250" r="4" fill="blue" opacity="0.5" />
+
+                        <path d="M180 340 H130 Q110 350 100 370 H80" stroke="gray" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        <circle cx="180" cy="340" r="5" fill="blue" />
+                        <circle cx="80" cy="370" r="4" fill="gray" opacity="0.5" />
+
+
+                        <path d="M420 280 H460 Q480 270 490 250 H510" stroke="gray" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        <circle cx="420" cy="280" r="5" fill="blue" />
+                        <circle cx="510" cy="250" r="4" fill="gray" opacity="0.5" />
+
+
+                        <path d="M420 340 H470 Q490 350 500 370 H520" stroke="gray" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        <circle cx="420" cy="340" r="5" fill="blue" />
+                        <circle cx="520" cy="370" r="4" fill="gray" opacity="0.5" />
+
+                    </svg>
+
+                    <Image src={"/image.png"} width={500} height={500} alt="Cognify Now" className="opacity-90" />
                 </div>
 
                 <div className="flex flex-col gap-10">
@@ -89,24 +108,23 @@ const HomePageDetails = () => {
                         return (
                             <div
                                 key={key}
-                                className="relative flex flex-col items-center bg-white p-3 shadow-md rounded-lg cursor-pointer transition duration-300 hover:shadow-xl"
-                                onClick={() => setSelectedFeature(key as keyof FeaturesData)}
+                                className="relative flex flex-col items-end bg-white/80 p-3 rounded-lg cursor-pointer transition-all duration-300 hover:shadow-xl"
                                 onMouseEnter={() => setHoveredFeature(key)}
                                 onMouseLeave={() => setHoveredFeature(null)}
                             >
                                 <Image
-                                    src={keyFeatures[key as keyof typeof keyFeatures] || "/default-icon.png"}
+                                    src={keyFeatures[key as keyof typeof keyFeatures] || "/image.png"}
                                     width={50}
                                     height={50}
                                     alt={featureData.title}
                                 />
-                                <span className="mt-2 text-sm font-medium">{featureData.title}</span>
+                                <span className="mt-2 font-medium flex-wrap w-30 flex text-end justify-start text-gray-700">{featureData.title}</span>
 
                                 {hoveredFeature === key && (
-                                    <div className="absolute top-full mt-2 bg-white shadow-md p-4 rounded-lg w-64 text-left text-sm z-50">
-                                        <ul>
+                                    <div className="absolute right-full mt-2 bg-white shadow-md p-4 py-8 rounded-lg w-72 text-left text-sm z-50 mr-2">
+                                        <ul className="text-left text-sm list-disc pl-4">
                                             {featureData.points.map((point: string, i: number) => (
-                                                <li key={i} className="mb-1">- {point}</li>
+                                                <li key={i} className="mb-1"> {point}</li>
                                             ))}
                                         </ul>
                                     </div>
@@ -117,16 +135,6 @@ const HomePageDetails = () => {
                 </div>
             </div>
 
-            {selectedFeature && data[selectedFeature] && (
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-white p-6 shadow-xl rounded-lg max-w-md opacity-90">
-                    <h3 className="text-xl font-semibold mb-4">{data[selectedFeature][0].title}</h3>
-                    <ul className="text-left text-sm">
-                        {data[selectedFeature][0].points.map((point: string, i: number) => (
-                            <li key={i} className="mb-1">- {point}</li>
-                        ))}
-                    </ul>
-                </div>
-            )}
         </div>
     );
 };
