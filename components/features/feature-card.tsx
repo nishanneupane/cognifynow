@@ -22,8 +22,8 @@ export default function FeatureCard({
             onMouseLeave={() => setHovered(false)}
             className={`relative flex flex-col items-${position === "left" ? "start" : "end  "} text-${position === "left" ? "start" : "end  "} p-3 rounded-lg cursor-pointer transition-all duration-300 hover:shadow-xl bg-white/80`}
         >
-            <Image src={icon || "/image.png"} width={70} height={70} alt={title} />
-            <h3 className="mt-2 font-medium w-30 text-gray-700">{title}</h3>
+            <Image src={icon || "/image.png"} width={70} height={70} alt={title} className={`${position === "right" ? "self-end" : "self-start"}`} />
+            <h3 className={`mt-2 font-medium w-30 text-gray-700 ${position === "right" ? "text-end" : "text-start"}`}>{title}</h3>
 
             {hovered && (
                 <div
